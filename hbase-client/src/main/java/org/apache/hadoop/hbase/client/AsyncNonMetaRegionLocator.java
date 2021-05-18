@@ -146,11 +146,21 @@ class AsyncNonMetaRegionLocator {
     }
 
     public void clearCompletedRequests(RegionLocations locations) {
-      for (Iterator<Map.Entry<LocateRequest, CompletableFuture<RegionLocations>>> iter =
+      /*for (Iterator<Map.Entry<LocateRequest, CompletableFuture<RegionLocations>>> iter =
         allRequests.entrySet().iterator(); iter.hasNext();) {
         Map.Entry<LocateRequest, CompletableFuture<RegionLocations>> entry = iter.next();
         if (tryComplete(entry.getKey(), entry.getValue(), locations)) {
           iter.remove();
+        }
+      }*/
+      Set<LocateRequest> requestSnapshot = new HashSet<>(allRequests.keySet());
+      for (LocateRequest request: requestSnapshot) {
+        CompletableFuture<RegionLocations> future = allRequests.get(request);
+        if (future == null) {
+          continue;
+        }
+        if (tryComplete(request, future, locations)) {
+          allRequests.remove(request);
         }
       }
     }
