@@ -3853,6 +3853,17 @@
     </plugins>
   </reporting>
   <distributionManagement>
+    <snapshotRepository>
+      <id>maven-snapshots</id>
+      <name>User Project Snapshot</name>
+      <url>http://mvn.jhub.safe.qihoo.net/repository/maven-snapshots/</url>
+      <uniqueVersion>true</uniqueVersion>
+    </snapshotRepository>
+    <repository>
+      <id>maven-releases</id>
+      <name>User Project Release</name>
+      <url>http://mvn.jhub.safe.qihoo.net/repository/maven-public/</url>
+    </repository>
     <site>
       <id>hbase.apache.org</id>
       <name>HBase Website at hbase.apache.org</name>
